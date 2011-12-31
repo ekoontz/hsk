@@ -4,6 +4,7 @@
   ;; "These namespaces will be AOT-compiled. Needed for gen-class and
   ;; other Java interop functionality. :namespaces is an alias for this.
   ;; Put a regex here to compile all namespaces whose names match."
+  ;; 
   ;; -https://github.com/technomancy/leiningen/blob/master/sample.project.clj#L91
   :aot [ #"hsk.*" ]
   :dependencies [[org.clojure/clojure "1.2.1"]
