@@ -12,6 +12,7 @@
                  [cascalog/cascalog "1.8.4"]
                  [commons-cli "1.2"]
                  [commons-configuration "1.6"]
+                 [commons-httpclient "3.1"]
                  [commons-logging "1.1.1"]
                  [org.clojure/tools.logging "0.2.3"]
                  [log4j "1.2.16"]
