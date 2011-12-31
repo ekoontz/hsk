@@ -2,7 +2,6 @@
   (:use [hsk.core])
   (:use [hsk.log])
   (:use [hsk.flat2seq])
-  (:use [hsk.flat2seq])
   (:use [hsk.sequencefile])
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
