@@ -18,11 +18,9 @@
 (deftest flat2seq
   (let [flat-files "hdfs://localhost:9000/flat-files/"
         seq-files "hdfs://localhost:9000/seq-files/"
-        from-repl (FromRepl. flat-files seq-files)
-        ]
+        from-repl (FromRepl. flat-files seq-files)]
+    (-run-from-repl from-repl)
     (is true)))
-
-
 
 
 
