@@ -14,6 +14,9 @@
 (import '(org.codehaus.jackson.map JsonMappingException))
 (use 'clojure.tools.logging)
 
+(defn flat2seqi [flat-file-dir seq-file-dir]
+  42)
+
 (gen-class
  :name "hsk.flat2seq.tool"
  :extends "org.apache.hadoop.conf.Configured"
