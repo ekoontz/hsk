@@ -16,13 +16,32 @@
 
 (gen-class
  :name "hsk.flat2seq.FromRepl"
-; :extends "org.apache.hadoop.conf.Configured"
+ :extends "org.apache.hadoop.conf.Configured"
+ :implements ["org.apache.hadoop.util.Tool"]
  :constructors {[String String] []}
  :init from-repl-init)
 
 (defn -from-repl-init [flat-file-dir seq-file-dir]
-  (info "Conversion of flat to sequence files has begun...")
+  (info "Constructed hadoop job tool.")
   (list (list 42)))
+
+(defn -run-from-repl [^Tool this]
+  (info "Conversion of flat to sequence files is running.")
+  (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
+    (.setJobName "Identity")
+    ;; TODO: how to set version programmatically?
+    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
+    (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
+    (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
+    
+    (.setNumReduceTasks 0)
+    
+    (.setOutputKeyClass LongWritable)
+    (.setOutputValueClass Text)
+
+    (.setInputFormat TextInputFormat)
+    (.setOutputFormat SequenceFileOutputFormat)))
+
 
 (gen-class
  :name "hsk.flat2seq.tool"
