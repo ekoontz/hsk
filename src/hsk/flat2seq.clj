@@ -27,21 +27,25 @@
 
 (defn -run-from-repl [^Tool this]
   (info "Conversion of flat to sequence files is running.")
-  (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
-    (.setJobName "Identity")
-    ;; TODO: how to set version programmatically?
-    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
-    (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
-    (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
-    
-    (.setNumReduceTasks 0)
-    
-    (.setOutputKeyClass LongWritable)
-    (.setOutputValueClass Text)
+  (let [args ["hdfs://localhost:9000/hd-in/" "hdfs://localhost:9000/hd-out"]]
+    (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
+      (.setJobName "Identity")
+      ;; TODO: how to set version programmatically?
+      (.setJar "hsk-1.0.0-SNAPSHOT.jar")
+      (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
+      (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
+      
+      (.setNumReduceTasks 0)
+      
+      (.setOutputKeyClass LongWritable)
+      (.setOutputValueClass Text)
+      
+      (.setInputFormat TextInputFormat)
+      (.setOutputFormat SequenceFileOutputFormat)
 
-    (.setInputFormat TextInputFormat)
-    (.setOutputFormat SequenceFileOutputFormat)))
-
+      (FileInputFormat/setInputPaths (first args))
+      (FileOutputFormat/setOutputPath (Path. (second args)))
+      (JobClient/runJob))))
 
 (gen-class
  :name "hsk.flat2seq.tool"
