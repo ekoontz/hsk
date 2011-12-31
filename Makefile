@@ -19,4 +19,5 @@ test: clean
 	hadoop jar hsk-1.0.0-SNAPSHOT.jar hsk.flat2seq $(HDFS_ROOT)/hd-in $(HDFS_ROOT)/hd-out/
 	hadoop fs -ls $(HDFS_ROOT)/hd-out/
 	make clean-output
-	lein test	
+	lein test
+	hadoop fs -ls $(HDFS_ROOT)/hd-out/
