@@ -14,8 +14,15 @@
 (import '(org.codehaus.jackson.map JsonMappingException))
 (use 'clojure.tools.logging)
 
-(defn flat2seqi [flat-file-dir seq-file-dir]
-  42)
+(gen-class
+ :name "hsk.flat2seq.FromRepl"
+; :extends "org.apache.hadoop.conf.Configured"
+ :constructors {[String String] []}
+ :init from-repl-init)
+
+(defn -from-repl-init [flat-file-dir seq-file-dir]
+  (info "Conversion of flat to sequence files has begun...")
+  (list (list 42)))
 
 (gen-class
  :name "hsk.flat2seq.tool"

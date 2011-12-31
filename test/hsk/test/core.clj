@@ -2,9 +2,11 @@
   (:use [hsk.core])
   (:use [hsk.log])
   (:use [hsk.flat2seq])
+  (:use [hsk.flat2seq])
   (:use [hsk.sequencefile])
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
+(import '[hsk.flat2seq FromRepl])
 
 (enable-logging)
 
@@ -15,8 +17,12 @@
 
 (deftest flat2seq
   (let [flat-files "hdfs://localhost:9000/flat-files/"
-        seq-files "hdfs://localhost:9000/seq-files/"]
-    (flat2seqi flat-files seq-files)
+        seq-files "hdfs://localhost:9000/seq-files/"
+        from-repl (FromRepl. flat-files seq-files)
+        ]
     (is true)))
+
+
+
 
 
