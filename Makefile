@@ -1,4 +1,4 @@
-.PHONY: test lein-test
+.PHONY: test
 
 HDFS_ROOT=hdfs://localhost:9000
 STANDALONE_FS_ROOT=file:///tmp
