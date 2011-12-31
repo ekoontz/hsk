@@ -2,17 +2,13 @@
 
 Hadoop Starter Kit for Clojure.
 
-## Usage
+## Example Usage
 
-hadoop jar hsk.jar hsk.flat2seq hdfs://localhost:9000/hd-in hdfs://localhost:9000/hd-out
-
-Afterwards, output will be in the files:
-
-hdfs://localhost:9000/hd-out/part-00000, part-00001, ..etc.
+Run "make test"
 
 ## Build
 
-jar -cf hsk.jar `find classes/hsk classes/clojure -name "*.class"`
+lein jar
 
 ## License
 

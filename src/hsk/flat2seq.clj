@@ -27,8 +27,8 @@
   (info "Conversion of flat to sequence files has begun.")
   (doto (JobConf. (.getConf this) (.getClass this))
     (.setJobName "Identity")
-    (.setJar "akamai.jar")
-
+    ;; TODO: how to set version programmatically?
+    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
     (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
     (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
     
