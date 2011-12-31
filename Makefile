@@ -12,5 +12,4 @@ test:
 	hadoop fs -ls $(HDFS_ROOT)/hd-in/
 	hadoop jar hsk-1.0.0-SNAPSHOT.jar hsk.flat2seq $(HDFS_ROOT)/hd-in $(HDFS_ROOT)/hd-out/
 	hadoop fs -ls $(HDFS_ROOT)/hd-out/
-	hadoop fs -text $(HDFS_ROOT)/hd-out/part-00000 | head
 
