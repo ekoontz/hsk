@@ -4,7 +4,7 @@ HDFS_ROOT=hdfs://localhost:9000
 STANDALONE_FS_ROOT=file:///tmp
 
 test:
-	lein test
+	lein test jar
 	-hadoop fs -rmr $(HDFS_ROOT)/hd-in/
 	-hadoop fs -rmr $(HDFS_ROOT)/hd-out/
 	hadoop fs -mkdir $(HDFS_ROOT)/hd-in/
