@@ -6,6 +6,9 @@
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
 (import '[hsk.flat2seq FromRepl])
+(import '[org.apache.hadoop.fs FsShell])
+(import '[org.apache.hadoop.conf Configuration])
+(use 'clojure.tools.logging)
 
 (enable-logging)
 
@@ -17,6 +20,11 @@
 (deftest flat2seq
   (let [flat-files "hdfs://localhost:9000/hd-in/"
         seq-files "hdfs://localhost:9000/hd-out/"
-        from-repl (FromRepl.)]
+        from-repl (FromRepl.)
+        fs-shell (FsShell. (Configuration.))]
+    ;; remove existing output directory first: will be re-created as part of job.
+    (info "removing output directory: " seq-files)
+    (.run fs-shell (.split (str "-rmr " seq-files) " "))
+    (info "running job..")
     (-run-from-repl from-repl flat-files seq-files)
     (is true)))
