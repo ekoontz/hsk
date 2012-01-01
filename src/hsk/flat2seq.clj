@@ -18,34 +18,29 @@
  :name "hsk.flat2seq.FromRepl"
  :extends "org.apache.hadoop.conf.Configured"
  :implements ["org.apache.hadoop.util.Tool"]
- :constructors {[String String] []}
+ :constructors {[] []}
  :init from-repl-init)
 
-(defn -from-repl-init [flat-file-dir seq-file-dir]
+(defn -from-repl-init []
   (info "Constructed hadoop job tool.")
   (list (list 42)))
 
-(defn -run-from-repl [^Tool this]
+(defn -run-from-repl [^Tool this ^String input-dir ^String output-dir]
   (info "Conversion of flat to sequence files is running.")
-  (let [args ["hdfs://localhost:9000/hd-in/" "hdfs://localhost:9000/hd-out"]]
-    (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
-      (.setJobName "Identity")
-      ;; TODO: how to set version programmatically?
-      (.setJar "hsk-1.0.0-SNAPSHOT.jar")
-      (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
-      (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
-      
-      (.setNumReduceTasks 0)
-      
-      (.setOutputKeyClass LongWritable)
-      (.setOutputValueClass Text)
-      
-      (.setInputFormat TextInputFormat)
-      (.setOutputFormat SequenceFileOutputFormat)
-
-      (FileInputFormat/setInputPaths (first args))
-      (FileOutputFormat/setOutputPath (Path. (second args)))
-      (JobClient/runJob))))
+  (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
+    (.setJobName "Identity")
+    ;; TODO: how to set version programmatically?
+    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
+    (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
+    (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
+    (.setNumReduceTasks 0)
+    (.setOutputKeyClass LongWritable)
+    (.setOutputValueClass Text)
+    (.setInputFormat TextInputFormat)
+    (.setOutputFormat SequenceFileOutputFormat)
+    (FileInputFormat/setInputPaths input-dir)
+    (FileOutputFormat/setOutputPath (Path. output-dir))
+    (JobClient/runJob)))
 
 (gen-class
  :name "hsk.flat2seq.tool"
@@ -61,20 +56,15 @@
     (.setJar "hsk-1.0.0-SNAPSHOT.jar")
     (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
     (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
-    
     (.setNumReduceTasks 0)
-    
     (.setOutputKeyClass LongWritable)
     (.setOutputValueClass Text)
-
     (.setInputFormat TextInputFormat)
     (.setOutputFormat SequenceFileOutputFormat)
-    
     (FileInputFormat/setInputPaths (first args))
     (FileOutputFormat/setOutputPath (Path. (second args)))
     (JobClient/runJob)
     )
-
   (println "Converted files to sequence files.")
   0)
 
