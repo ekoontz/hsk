@@ -22,8 +22,7 @@
  :init from-repl-init)
 
 (defn -from-repl-init []
-  (info "Constructed hadoop job tool.")
-  (list (list 42)))
+  (info "Constructed hadoop job tool."))
 
 (defn -run-from-repl [^Tool this ^String input-dir ^String output-dir]
   (info "Conversion of flat to sequence files is running.")
