@@ -4,7 +4,7 @@ Hadoop Starter Kit for Clojure.
 
 ## Example Usage
 
-Run "make test"
+lein clean, jar, test
 
 ## Build
 
