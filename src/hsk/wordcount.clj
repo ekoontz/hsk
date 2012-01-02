@@ -52,7 +52,7 @@
     (.collect output key (LongWritable. sum))))
 
 (gen-class
- :name "hsk.wordcount.HTool"
+ :name "hsk.wordcount.Tool"
  :extends "org.apache.hadoop.conf.Configured"
  :prefix ""
  :implements ["org.apache.hadoop.util.Tool"]
@@ -79,7 +79,7 @@
     (JobClient/runJob)))
 
 (gen-class
- :name "hsk.wordcount.tool"
+ :name "hsk.wordcount.ctool"
  :extends "org.apache.hadoop.conf.Configured"
  :implements ["org.apache.hadoop.util.Tool"]
  :main true)
@@ -109,6 +109,6 @@
     (System/exit
      (org.apache.hadoop.util.ToolRunner/run 
       (org.apache.hadoop.conf.Configuration.)
-      (. (Class/forName "hsk.wordcount.tool") newInstance)
+      (. (Class/forName "hsk.wordcount.ctool") newInstance)
       (into-array String args)))))
 

@@ -5,7 +5,7 @@
   (:use [hsk.sequencefile])
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
-(import '[hsk.wordcount HTool])
+(import '[hsk.wordcount Tool])
 (import '[org.apache.hadoop.fs FsShell])
 (import '[org.apache.hadoop.conf Configuration])
 (use 'clojure.tools.logging)
@@ -13,7 +13,7 @@
 (deftest wordcount
   (let [flat-files "file:///tmp/wordcount-in"
         wc-out "file:///tmp/wordcount-out"
-        from-repl (HTool.)
+        from-repl (Tool.)
         fs-shell (FsShell. (Configuration.))]
 
     ;; populate input directory with data.
