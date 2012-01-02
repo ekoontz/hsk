@@ -39,7 +39,7 @@ everything should work the same.
 
 For example:
 
-    => (tool-run (hsk.wordcount.Tool.) (list "hdfs://localhost:9000/wordcount-in" "hdfs://localhost:9000/wordcount-out"))
+    => (tool-run (Tool.) (list "hdfs://localhost:9000/wordcount-in" "hdfs://localhost:9000/wordcount-out"))
 
 ## License
 
