@@ -17,14 +17,15 @@
 (gen-class
  :name "hsk.wordcount.FromRepl"
  :extends "org.apache.hadoop.conf.Configured"
+ :prefix "wc-"
  :implements ["org.apache.hadoop.util.Tool"]
  :constructors {[] []}
  :init from-repl-init)
 
-(defn -from-repl-init []
+(defn wc-from-repl-init []
   (info "Constructed hadoop job tool."))
 
-(defn -run-from-repl [^Tool this ^String input-dir ^String output-dir]
+(defn wc-run-from-repl [^Tool this ^String input-dir ^String output-dir]
   (info "Conversion of flat to sequence files is running.")
   (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
     (.setJobName "Identity")

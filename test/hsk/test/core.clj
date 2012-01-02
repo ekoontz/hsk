@@ -16,23 +16,3 @@
   (let [filename "/mytest.seq"]
     (is (= 0 (write-to-file filename)))
     (is (= 0 (read-from-file filename)))))
-
-(deftest flat2seq
-  (let [flat-files "file:///tmp/flat2seq-in/"
-        seq-files "file:///tmp/flat2seq-out/"
-        from-repl (FromRepl.)
-        fs-shell (FsShell. (Configuration.))]
-
-    ;; populate input directory with data.
-    (info "removing input directory: " flat-files)
-    (.run fs-shell (.split (str "-rmr " flat-files) " "))
-    (.run fs-shell (.split (str "-mkdir " flat-files) " "))
-    (.run fs-shell (.split (str "-copyFromLocal sample/flat/access_log " flat-files) " "))
-    
-    ;; remove existing output directory: will be re-created as part of job.
-    (info "removing output directory: " seq-files)
-    (.run fs-shell (.split (str "-rmr " seq-files) " "))
-    (info "running job..")
-    (-run-from-repl from-repl flat-files seq-files)
-    (is true)))
-
