@@ -7,8 +7,6 @@
 (import '[org.apache.hadoop.fs FsShell])
 (import '[org.apache.hadoop.conf Configuration])
 
-(enable-logging)
-
 (deftest seq-file
   (let [filename "/mytest.seq"]
     (is (= 0 (write-to-file filename)))
