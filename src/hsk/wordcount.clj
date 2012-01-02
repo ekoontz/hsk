@@ -8,11 +8,12 @@
 (use 'clojure.tools.logging)
 
 (gen-class
+ :prefix "wc-"
  :name "hsk.wordcount.mapper"
  :extends "org.apache.hadoop.mapred.MapReduceBase"
  :implements ["org.apache.hadoop.mapred.Mapper"])
 
-(defn -map
+(defn wc-map
   "'This is our implementation of the Mapper.map method.  The key and
   value arguments are sub-classes of Hadoop's Writable interface, so
   we have to convert them to strings or some other type before we can
@@ -24,11 +25,12 @@
     (.collect output (Text. word) (LongWritable. 1))))
 
 (gen-class
+ :prefix "wc-"
  :name "hsk.wordcount.reducer"
  :extends "org.apache.hadoop.mapred.MapReduceBase"
  :implements ["org.apache.hadoop.mapred.Reducer"])
 
-(defn -reduce 
+(defn wc-reduce 
   "'This is our implementation of the Reducer.reduce method.  The key
   argument is a sub-class of Hadoop's Writable, but 'values' is a Java
   Iterator that returns successive values.  We have to use

@@ -36,7 +36,7 @@
   "public wrapper for (run), beccause the latter is not public."
   (run this args))
 
-(defn -main [& args]
+(defn main [& args]
   (do
     (System/exit
      (org.apache.hadoop.util.ToolRunner/run 
