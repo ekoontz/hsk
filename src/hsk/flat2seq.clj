@@ -50,7 +50,7 @@
 (defn -run [^Tool this args]
   (info "Conversion of flat to sequence files has begun.")
   (doto (JobConf. (.getConf this) (.getClass this))
-    (.setJobName "Identity")
+    (.setJobName "Flat to Sequence File Converter")
     ;; TODO: how to set version programmatically?
     (.setJar "hsk-1.0.0-SNAPSHOT.jar")
     (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
