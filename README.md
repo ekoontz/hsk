@@ -17,11 +17,11 @@ Hadoop framework.
 
 ### HDFS Shell integration
 
-    lein repl
-    (load "shell")
-    (ns hsk.shell)
-    (shell "ls file:///tmp")
-    (shell "mkdir hdfs://localhost:9000/foo")
+    $ lein repl
+    => (load "shell")
+    => (ns hsk.shell)
+    => (shell "ls file:///tmp")
+    => (shell "mkdir hdfs://localhost:9000/foo")
 
 ### Mapreduce integration
 
