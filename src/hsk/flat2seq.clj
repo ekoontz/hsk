@@ -19,9 +19,6 @@
  :prefix ""
  :main true)
 
-(defn init []
-  (info "Constructed hadoop job tool for converting flat files to sequence files."))
-
 (defn run [^hsk.flat2seq.Tool this args]
   (info "Conversion of flat to sequence files has begun.")
   (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))

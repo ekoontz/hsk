@@ -59,9 +59,6 @@
  :constructors {[] []}
  :main true)
 
-(defn init []
-  (info "Constructed hadoop job tool for wordcounting."))
-
 (defn run [^hsk.wordcount.Tool this args]
   (let [input-dir (first args)
         output-dir (second args)]
