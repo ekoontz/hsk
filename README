@@ -1,6 +1,6 @@
-# hsk
+# hsk: Hadoop Starter Kit for Clojure. 
 
-Hadoop Starter Kit for Clojure.
+Based on clojure-hadoop by Stuart Sierra (https://github.com/stuartsierra/clojure-hadoop).
 
 ## Example Usage
 
