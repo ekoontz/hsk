@@ -1,6 +1,9 @@
 (defproject hsk "1.0.0-SNAPSHOT"
+
   :description "hsk: the Hadoop Starter Kit for Clojure"
   :license {:name "Eclipse Public License"}
+  ;; trying to avoid Out of Heap Memory errors with the following:
+  :jvm-opts ["-Xmx768m" "-server"]
   ;; "These namespaces will be AOT-compiled. Needed for gen-class and
   ;; other Java interop functionality. :namespaces is an alias for this.
   ;; Put a regex here to compile all namespaces whose names match."
