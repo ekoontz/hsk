@@ -11,6 +11,7 @@
 (import '(org.apache.log4j.spi RootLogger))
 (import '(org.apache.log4j SimpleLayout WriterAppender))
 (import '(org.codehaus.jackson.map JsonMappingException))
+(import '(hsk.wordcount Tool))
 (use 'clojure.tools.logging)
 
 (gen-class
@@ -62,7 +63,7 @@
 (defn create []
   (info "Constructed hadoop job tool."))
 
-(defn tool-run [this ^String input-dir ^String output-dir]
+(defn tool-run [^Tool this ^String input-dir ^String output-dir]
   (info "Wordcount is running.")
   (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
     (.setJobName "Identity")
@@ -84,24 +85,9 @@
  :implements ["org.apache.hadoop.util.Tool"]
  :main true)
 
-(defn -run [^org.apache.hadoop.util.Tool this args]
+(defn -run [^Tool this args]
   (info "Conversion of flat to sequence files has begun.")
-  (doto (JobConf. (.getConf this) (.getClass this))
-    (.setJobName "Flat to Sequence File Converter")
-    ;; TODO: how to set version programmatically?
-    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
-    (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
-    (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
-    (.setNumReduceTasks 0)
-    (.setOutputKeyClass LongWritable)
-    (.setOutputValueClass Text)
-    (.setInputFormat TextInputFormat)
-    (.setOutputFormat SequenceFileOutputFormat)
-    (FileInputFormat/setInputPaths (first args))
-    (FileOutputFormat/setOutputPath (Path. (second args)))
-    (JobClient/runJob)
-    )
-  (println "Converted files to sequence files.")
+  (tool-run this (first args) (second args))
   0)
 
 (defn -main [& args]

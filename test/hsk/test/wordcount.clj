@@ -13,7 +13,7 @@
 (deftest wordcount
   (let [flat-files "file:///tmp/wordcount-in"
         wc-out "file:///tmp/wordcount-out"
-        from-repl (Tool.)
+        tool (Tool.)
         fs-shell (FsShell. (Configuration.))]
 
     ;; populate input directory with data.
@@ -26,5 +26,5 @@
     (info "removing output directory: " wc-out)
     (.run fs-shell (.split (str "-rmr " wc-out) " "))
     (info "running job..")
-    (tool-run from-repl flat-files wc-out)
+    (tool-run tool flat-files wc-out)
     (is true)))
