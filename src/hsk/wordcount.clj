@@ -1,16 +1,10 @@
 (ns hsk.wordcount)
-
 (import '(java.util StringTokenizer))
-(import '(org.apache.commons.logging Log LogFactory))
 (import '(org.apache.hadoop.mapred
           FileInputFormat FileOutputFormat JobClient JobConf Mapper MapReduceBase
-          OutputCollector Reducer TextInputFormat SequenceFileOutputFormat
-          TextOutputFormat))
+          OutputCollector Reducer TextInputFormat TextOutputFormat))
 (import '(org.apache.hadoop.fs Path))
 (import '(org.apache.hadoop.io Text LongWritable))
-(import '(org.apache.log4j.spi RootLogger))
-(import '(org.apache.log4j SimpleLayout WriterAppender))
-(import '(org.codehaus.jackson.map JsonMappingException))
 (use 'clojure.tools.logging)
 
 (gen-class
@@ -48,7 +42,8 @@
   iterator.'
   - https://github.com/stuartsierra/clojure-hadoop/blob/master/src/examples/clojure/clojure_hadoop/examples/wordcount1.clj#L47 "
   [this key values #^OutputCollector output reporter]
-  (let [sum (reduce + (map (fn [#^LongWritable v] (.get v)) (iterator-seq values)))]
+  (let [sum (reduce + (map (fn [#^LongWritable v]
+                             (.get v)) (iterator-seq values)))]
     (.collect output key (LongWritable. sum))))
 
 (gen-class

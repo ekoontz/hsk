@@ -1,15 +1,9 @@
 (ns hsk.flat2seq)
-
-(import '(java.util StringTokenizer))
-(import '(org.apache.commons.logging Log LogFactory))
-(import '(org.apache.hadoop.mapred FileInputFormat FileOutputFormat JobClient JobConf Mapper
-                                   OutputCollector Reducer TextInputFormat SequenceFileOutputFormat TextOutputFormat))
+(import '(org.apache.hadoop.mapred FileInputFormat FileOutputFormat JobClient JobConf
+                                   TextInputFormat SequenceFileOutputFormat))
 (import '(org.apache.hadoop.mapred.lib IdentityMapper IdentityReducer))
 (import '(org.apache.hadoop.fs Path))
 (import '(org.apache.hadoop.io Text LongWritable))
-(import '(org.apache.log4j.spi RootLogger))
-(import '(org.apache.log4j SimpleLayout WriterAppender))
-(import '(org.codehaus.jackson.map JsonMappingException))
 (use 'clojure.tools.logging)
 
 (gen-class
@@ -34,9 +28,8 @@
     (.setOutputFormat SequenceFileOutputFormat)
     (FileInputFormat/setInputPaths (first args))
     (FileOutputFormat/setOutputPath (Path. (second args)))
-    (JobClient/runJob)
-    )
-  (println "Converted files to sequence files.")
+    (JobClient/runJob))
+  (info "Conversion of flat to sequence files has finished.")
   0)
 
 (defn tool-run [^hsk.flat2seq.Tool this args]
