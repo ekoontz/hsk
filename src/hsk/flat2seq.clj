@@ -1,5 +1,4 @@
-(ns hsk.flat2seq
-  (:gen-class))
+(ns hsk.flat2seq)
 
 (import '(java.util StringTokenizer))
 (import '(org.apache.commons.logging Log LogFactory))

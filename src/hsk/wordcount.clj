@@ -1,5 +1,4 @@
-(ns hsk.wordcount
-  (:gen-class))
+(ns hsk.wordcount)
 
 (import '(java.util StringTokenizer))
 (import '(org.apache.commons.logging Log LogFactory))
