@@ -2,7 +2,6 @@
   (:use [hsk.core])
   (:use [hsk.log])
   (:use [hsk.wordcount])
-  (:use [hsk.sequencefile])
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
 (import '[hsk.wordcount Tool])
@@ -13,7 +12,6 @@
 (deftest wordcount
   (let [flat-files "file:///tmp/wordcount-in"
         wc-out "file:///tmp/wordcount-out"
-        tool (Tool.)
         fs-shell (FsShell. (Configuration.))]
 
     ;; populate input directory with data.
@@ -26,5 +24,5 @@
     (info "removing output directory: " wc-out)
     (.run fs-shell (.split (str "-rmr " wc-out) " "))
     (info "running job..")
-    (.tool-run tool flat-files wc-out)
+    (tool-run (Tool.) flat-files wc-out)
     (is true)))
