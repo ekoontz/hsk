@@ -1,4 +1,4 @@
-(ns hsk.test.core
+(ns hsk.test.wordcount
   (:use [hsk.core])
   (:use [hsk.log])
   (:use [hsk.flat2seq])
@@ -10,16 +10,9 @@
 (import '[org.apache.hadoop.conf Configuration])
 (use 'clojure.tools.logging)
 
-(enable-logging)
-
-(deftest seq-file
-  (let [filename "/mytest.seq"]
-    (is (= 0 (write-to-file filename)))
-    (is (= 0 (read-from-file filename)))))
-
-(deftest flat2seq
-  (let [flat-files "file:///tmp/flat2seq-in/"
-        seq-files "file:///tmp/flat2seq-out/"
+(deftest wordcount
+  (let [flat-files "file:///tmp/wordcount-in"
+        wc-out "file:///tmp/wordcount-out"
         from-repl (FromRepl.)
         fs-shell (FsShell. (Configuration.))]
 
@@ -30,9 +23,8 @@
     (.run fs-shell (.split (str "-copyFromLocal sample/flat/access_log " flat-files) " "))
     
     ;; remove existing output directory: will be re-created as part of job.
-    (info "removing output directory: " seq-files)
-    (.run fs-shell (.split (str "-rmr " seq-files) " "))
+    (info "removing output directory: " wc-out)
+    (.run fs-shell (.split (str "-rmr " wc-out) " "))
     (info "running job..")
-    (-run-from-repl from-repl flat-files seq-files)
+    (-run-from-repl from-repl flat-files wc-out)
     (is true)))
-

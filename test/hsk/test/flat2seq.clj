@@ -10,13 +10,6 @@
 (import '[org.apache.hadoop.conf Configuration])
 (use 'clojure.tools.logging)
 
-(enable-logging)
-
-(deftest seq-file
-  (let [filename "/mytest.seq"]
-    (is (= 0 (write-to-file filename)))
-    (is (= 0 (read-from-file filename)))))
-
 (deftest flat2seq
   (let [flat-files "file:///tmp/flat2seq-in/"
         seq-files "file:///tmp/flat2seq-out/"
