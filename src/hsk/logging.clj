@@ -1,4 +1,4 @@
-(ns hsk.log)
+(ns hsk.logging)
 (import '(org.apache.log4j Logger WriterAppender SimpleLayout))
 ;; adapted from src/clj/cascalog/playground in Cascalog by Nathan Marz.
 (defmacro enable-logging []

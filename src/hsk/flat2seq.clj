@@ -24,7 +24,7 @@
 
 (defn run [^hsk.flat2seq.Tool this args]
   (info "Conversion of flat to sequence files has begun.")
-  (doto (JobConf. (.getConf this) (.getClass this))
+  (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
     (.setJobName "Flat to Sequence File Converter")
     ;; TODO: how to set version programmatically?
     (.setJar "hsk-1.0.0-SNAPSHOT.jar")

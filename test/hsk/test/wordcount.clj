@@ -1,13 +1,12 @@
 (ns hsk.test.wordcount
-  (:use [hsk.core])
-  (:use [hsk.log])
-  (:use [hsk.wordcount])
-  (:use [clojure.test]))
+  (:use [clojure.test])
+  (:use [clojure.tools.logging])
+  (:use [hsk.logging])
+  (:use [hsk.wordcount]))
 (import '[cascalog WriterOutputStream])
 (import '[hsk.wordcount Tool])
 (import '[org.apache.hadoop.fs FsShell])
 (import '[org.apache.hadoop.conf Configuration])
-(use 'clojure.tools.logging)
 
 (deftest wordcount
   (let [flat-files "file:///tmp/wordcount-in"

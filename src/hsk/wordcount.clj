@@ -2,8 +2,10 @@
 
 (import '(java.util StringTokenizer))
 (import '(org.apache.commons.logging Log LogFactory))
-(import '(org.apache.hadoop.mapred FileInputFormat FileOutputFormat JobClient JobConf Mapper MapReduceBase
-                                   OutputCollector Reducer TextInputFormat SequenceFileOutputFormat TextOutputFormat))
+(import '(org.apache.hadoop.mapred
+          FileInputFormat FileOutputFormat JobClient JobConf Mapper MapReduceBase
+          OutputCollector Reducer TextInputFormat SequenceFileOutputFormat
+          TextOutputFormat))
 (import '(org.apache.hadoop.fs Path))
 (import '(org.apache.hadoop.io Text LongWritable))
 (import '(org.apache.log4j.spi RootLogger))
