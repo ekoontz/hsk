@@ -1,8 +1,9 @@
 (ns hsk.flat2seq)
+(import '(org.apache.hadoop.conf Configuration))
 (import '(org.apache.hadoop.mapred FileInputFormat FileOutputFormat JobClient JobConf
                                    TextInputFormat SequenceFileOutputFormat))
 (import '(org.apache.hadoop.mapred.lib IdentityMapper IdentityReducer))
-(import '(org.apache.hadoop.fs Path))
+(import '(org.apache.hadoop.fs Path FsShell))
 (import '(org.apache.hadoop.io Text LongWritable))
 (use 'clojure.tools.logging)
 

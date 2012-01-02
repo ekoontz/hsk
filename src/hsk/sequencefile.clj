@@ -22,6 +22,7 @@
 (defn finish-writer [writer]
   (IOUtils/closeStream writer))
 
+;; TODO: move this fn from hsk.sequencefile to hsk.test.sequencefile.
 (defn write-to-file [filename]
   (info "writing to sequence file..")
   (let [writer (get-writer filename)]

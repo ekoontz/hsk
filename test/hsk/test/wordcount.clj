@@ -2,6 +2,7 @@
   (:use [clojure.test])
   (:use [clojure.tools.logging])
   (:use [hsk.logging])
+  (:use [hsk.shell])
   (:use [hsk.wordcount]))
 (import '[cascalog WriterOutputStream])
 (import '[hsk.wordcount Tool])
