@@ -18,8 +18,8 @@
     (is (= 0 (read-from-file filename)))))
 
 (deftest flat2seq
-  (let [flat-files "hdfs://localhost:9000/hd-in/"
-        seq-files "hdfs://localhost:9000/hd-out/"
+  (let [flat-files "file:///tmp/flat2seq-in/"
+        seq-files "file:///tmp/flat2seq-out/"
         from-repl (FromRepl.)
         fs-shell (FsShell. (Configuration.))]
 
@@ -29,7 +29,6 @@
     (.run fs-shell (.split (str "-mkdir " flat-files) " "))
     (.run fs-shell (.split (str "-copyFromLocal sample/flat/access_log " flat-files) " "))
     
-    
     ;; remove existing output directory: will be re-created as part of job.
     (info "removing output directory: " seq-files)
     (.run fs-shell (.split (str "-rmr " seq-files) " "))
@@ -38,9 +37,7 @@
     (is true)))
 
 (deftest wordcount
-  (let [;flat-files "hdfs://localhost:9000/hd-in/"
-        ;wc-out "hdfs://localhost:9000/hd-out/"
-        flat-files "file:///tmp/wordcount-in"
+  (let [flat-files "file:///tmp/wordcount-in"
         wc-out "file:///tmp/wordcount-out"
         from-repl (FromRepl.)
         fs-shell (FsShell. (Configuration.))]
