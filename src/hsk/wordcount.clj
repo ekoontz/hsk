@@ -11,7 +11,6 @@
 (import '(org.apache.log4j.spi RootLogger))
 (import '(org.apache.log4j SimpleLayout WriterAppender))
 (import '(org.codehaus.jackson.map JsonMappingException))
-(import '(hsk.wordcount Tool))
 (use 'clojure.tools.logging)
 
 (gen-class
@@ -58,43 +57,39 @@
  :prefix ""
  :implements ["org.apache.hadoop.util.Tool"]
  :constructors {[] []}
- :init create)
-
-(defn create []
-  (info "Constructed hadoop job tool."))
-
-(defn tool-run [^Tool this ^String input-dir ^String output-dir]
-  (info "Wordcount is running.")
-  (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
-    (.setJobName "Identity")
-    ;; TODO: how to set version programmatically?
-    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
-    (.setMapperClass (Class/forName "hsk.wordcount.mapper"))
-    (.setReducerClass (Class/forName "hsk.wordcount.reducer"))
-    (.setOutputKeyClass Text)
-    (.setOutputValueClass LongWritable)
-    (.setInputFormat TextInputFormat)
-    (.setOutputFormat TextOutputFormat)
-    (FileInputFormat/setInputPaths input-dir)
-    (FileOutputFormat/setOutputPath (Path. output-dir))
-    (JobClient/runJob)))
-
-(gen-class
- :name "hsk.wordcount.ctool"
- :extends "org.apache.hadoop.conf.Configured"
- :implements ["org.apache.hadoop.util.Tool"]
  :main true)
 
-(defn -run [^Tool this args]
-  (info "Conversion of flat to sequence files has begun.")
-  (tool-run this (first args) (second args))
-  0)
+(defn init []
+  (info "Constructed hadoop job tool for wordcounting."))
 
-(defn -main [& args]
+(defn run [^hsk.wordcount.Tool this args]
+  (let [input-dir (first args)
+        output-dir (second args)]
+    (info "Wordcount is running.")
+    (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
+      (.setJobName "Wordcount")
+      ;; TODO: how to set version programmatically?
+      (.setJar "hsk-1.0.0-SNAPSHOT.jar")
+      (.setMapperClass (Class/forName "hsk.wordcount.mapper"))
+      (.setReducerClass (Class/forName "hsk.wordcount.reducer"))
+      (.setOutputKeyClass Text)
+      (.setOutputValueClass LongWritable)
+      (.setInputFormat TextInputFormat)
+      (.setOutputFormat TextOutputFormat)
+      (FileInputFormat/setInputPaths input-dir)
+      (FileOutputFormat/setOutputPath (Path. output-dir))
+      (JobClient/runJob))
+    0))
+
+(defn tool-run [^hsk.wordcount.Tool this args]
+  "public wrapper for (run), which is not public."
+  (run this args))
+
+(defn main [& args]
   (do
     (System/exit
      (org.apache.hadoop.util.ToolRunner/run 
       (org.apache.hadoop.conf.Configuration.)
-      (. (Class/forName "hsk.wordcount.ctool") newInstance)
+      (. (Class/forName "hsk.wordcount.Tool") newInstance)
       (into-array String args)))))
 
