@@ -28,14 +28,13 @@ Hadoop framework.
     $ lein repl
     => (ns myns (:use [hsk.shell][hsk.logging][hsk.wordcount]))
     => (import '[hsk.wordcount Tool])
-    => (shell "rmr file:///tmp/wordcount-out")
 
 If running in emacs with clojure-jack-in, run:
 
     => (enable-logging-in-emacs)
 
 Now to run the MapReduce job:
-
+    => (shell "rmr file:///tmp/wordcount-out")
     => (tool-run (Tool.) (list "file:///tmp/wordcount-in" "file:///tmp/wordcount-out"))
     => (shell "ls file:///tmp/wordcount-out")
     => (shell "cat file:///tmp/wordcount-out/part-00000")
