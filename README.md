@@ -15,7 +15,7 @@ You must make sure to run "lein jar" before you run "lein test"
 because the tests need the jar file so that they can run through the
 Hadoop framework.
 
-### HDFS Shell integration
+### HDFS shell
 
     $ lein repl
     => (load "shell")
@@ -23,12 +23,19 @@ Hadoop framework.
     => (shell "ls file:///tmp")
     => (shell "mkdir hdfs://localhost:9000/foo")
 
-### Mapreduce integration
+### MapReduce jobs
 
     $ lein repl
     => (ns myns (:use [hsk.shell][hsk.logging][hsk.wordcount]))
     => (import '[hsk.wordcount Tool])
     => (shell "rmr file:///tmp/wordcount-out")
+
+If running in emacs with clojure-jack-in, run:
+
+    => (enable-logging-in-emacs)
+
+Now to run the MapReduce job:
+
     => (tool-run (Tool.) (list "file:///tmp/wordcount-in" "file:///tmp/wordcount-out"))
     => (shell "ls file:///tmp/wordcount-out")
     => (shell "cat file:///tmp/wordcount-out/part-00000")
