@@ -26,5 +26,5 @@
     (info "removing output directory: " wc-out)
     (.run fs-shell (.split (str "-rmr " wc-out) " "))
     (info "running job..")
-    (wc-run-from-repl from-repl flat-files wc-out)
+    (tool-run from-repl flat-files wc-out)
     (is true)))
