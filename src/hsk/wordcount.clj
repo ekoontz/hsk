@@ -8,7 +8,6 @@
 (import '(org.apache.hadoop.mapred.lib IdentityMapper IdentityReducer))
 (import '(org.apache.hadoop.fs Path))
 (import '(org.apache.hadoop.io Text LongWritable))
-(import '(org.apache.hadoop.util Tool))
 (import '(org.apache.log4j.spi RootLogger))
 (import '(org.apache.log4j SimpleLayout WriterAppender))
 (import '(org.codehaus.jackson.map JsonMappingException))
@@ -53,7 +52,7 @@
     (.collect output key (LongWritable. sum))))
 
 (gen-class
- :name "hsk.wordcount.FromRepl"
+ :name "hsk.wordcount.HTool"
  :extends "org.apache.hadoop.conf.Configured"
  :prefix ""
  :implements ["org.apache.hadoop.util.Tool"]
@@ -63,7 +62,7 @@
 (defn create []
   (info "Constructed hadoop job tool."))
 
-(defn tool-run [^Tool this ^String input-dir ^String output-dir]
+(defn tool-run [this ^String input-dir ^String output-dir]
   (info "Wordcount is running.")
   (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
     (.setJobName "Identity")
@@ -85,7 +84,7 @@
  :implements ["org.apache.hadoop.util.Tool"]
  :main true)
 
-(defn -run [^Tool this args]
+(defn -run [^org.apache.hadoop.util.Tool this args]
   (info "Conversion of flat to sequence files has begun.")
   (doto (JobConf. (.getConf this) (.getClass this))
     (.setJobName "Flat to Sequence File Converter")
