@@ -5,7 +5,6 @@
   (:use [hsk.sequencefile])
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
-(import '[hsk.flat2seq FromRepl])
 (import '[org.apache.hadoop.fs FsShell])
 (import '[org.apache.hadoop.conf Configuration])
 (use 'clojure.tools.logging)

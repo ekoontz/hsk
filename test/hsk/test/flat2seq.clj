@@ -5,7 +5,7 @@
   (:use [hsk.sequencefile])
   (:use [clojure.test]))
 (import '[cascalog WriterOutputStream])
-(import '[hsk.flat2seq FromRepl])
+(import '[hsk.flat2seq Tool])
 (import '[org.apache.hadoop.fs FsShell])
 (import '[org.apache.hadoop.conf Configuration])
 (use 'clojure.tools.logging)
@@ -13,7 +13,7 @@
 (deftest flat2seq
   (let [flat-files "file:///tmp/flat2seq-in/"
         seq-files "file:///tmp/flat2seq-out/"
-        from-repl (FromRepl.)
+        from-repl (Tool.)
         fs-shell (FsShell. (Configuration.))]
 
     ;; populate input directory with data.

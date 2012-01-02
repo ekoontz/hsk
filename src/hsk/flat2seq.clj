@@ -8,46 +8,22 @@
 (import '(org.apache.hadoop.mapred.lib IdentityMapper IdentityReducer))
 (import '(org.apache.hadoop.fs Path))
 (import '(org.apache.hadoop.io Text LongWritable))
-(import '(org.apache.hadoop.util Tool))
 (import '(org.apache.log4j.spi RootLogger))
 (import '(org.apache.log4j SimpleLayout WriterAppender))
 (import '(org.codehaus.jackson.map JsonMappingException))
 (use 'clojure.tools.logging)
 
 (gen-class
- :name "hsk.flat2seq.FromRepl"
+ :name "hsk.flat2seq.Tool"
  :extends "org.apache.hadoop.conf.Configured"
  :implements ["org.apache.hadoop.util.Tool"]
- :constructors {[] []}
- :init from-repl-init)
-
-(defn -from-repl-init []
-  (info "Constructed hadoop job tool."))
-
-(defn -run-from-repl [^Tool this ^String input-dir ^String output-dir]
-  (info "Conversion of flat to sequence files is running.")
-  (doto (JobConf. (org.apache.hadoop.conf.Configuration.) (.getClass this))
-    (.setJobName "Identity")
-    ;; TODO: how to set version programmatically?
-    (.setJar "hsk-1.0.0-SNAPSHOT.jar")
-    (.setMapperClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityMapper"))
-    (.setReducerClass (Class/forName "org.apache.hadoop.mapred.lib.IdentityReducer"))
-    (.setNumReduceTasks 0)
-    (.setOutputKeyClass LongWritable)
-    (.setOutputValueClass Text)
-    (.setInputFormat TextInputFormat)
-    (.setOutputFormat SequenceFileOutputFormat)
-    (FileInputFormat/setInputPaths input-dir)
-    (FileOutputFormat/setOutputPath (Path. output-dir))
-    (JobClient/runJob)))
-
-(gen-class
- :name "hsk.flat2seq.tool"
- :extends "org.apache.hadoop.conf.Configured"
- :implements ["org.apache.hadoop.util.Tool"]
+ :prefix ""
  :main true)
 
-(defn -run [^Tool this args]
+(defn init []
+  (info "Constructed hadoop job tool for converting flat files to sequence files."))
+
+(defn run [^hsk.flat2seq.Tool this args]
   (info "Conversion of flat to sequence files has begun.")
   (doto (JobConf. (.getConf this) (.getClass this))
     (.setJobName "Flat to Sequence File Converter")
@@ -67,11 +43,15 @@
   (println "Converted files to sequence files.")
   0)
 
+(defn tool-run [^hsk.flat2seq.Tool this args]
+  "public wrapper for (run), beccause the latter is not public."
+  (run this args))
+
 (defn -main [& args]
   (do
     (System/exit
      (org.apache.hadoop.util.ToolRunner/run 
       (org.apache.hadoop.conf.Configuration.)
-      (. (Class/forName "hsk.flat2seq.tool") newInstance)
+      (. (Class/forName "hsk.flat2seq.Tool") newInstance)
       (into-array String args)))))
 
