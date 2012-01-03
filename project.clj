@@ -21,7 +21,6 @@
                  [log4j "1.2.16"]
                  [junit/junit "4.7"]
                  [org.apache.hadoop/hadoop-core "1.0.1-SNAPSHOT"]
-                 [org.apache.hbase/hbase "0.93-SNAPSHOT"]
                  [org.mortbay.jetty/servlet-api-2.5 "6.1.14"]
                  [org.codehaus.jackson/jackson-core-asl "1.8.2"]
                  [org.codehaus.jackson/jackson-mapper-asl "1.8.2"]])
