@@ -23,7 +23,7 @@ will hopefully give you a failsafe testing environment with a local Hadoop confi
 ### HDFS shell
 
     $ lein repl
-    => (load "shell")
+    => (load "hsk/shell")
     => (ns hsk.shell)
     => (shell "ls file:///tmp")
     => (shell "mkdir hdfs://localhost:9000/foo")
