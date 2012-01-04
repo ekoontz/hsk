@@ -26,7 +26,7 @@ testing environment.
 ### HDFS shell
 
     $ lein repl
-    => (load "shell")
+    => (load "hsk/shell")
     => (ns hsk.shell)
     => (shell "ls file:///tmp")
     => (shell "mkdir hdfs://localhost:9000/foo")
@@ -37,7 +37,7 @@ testing environment.
     => (ns myns (:use [hsk.shell][hsk.logging][hsk.wordcount]))
     => (import '[hsk.wordcount Tool])
 
-If running in emacs with clojure-jack-in, run:
+If running in emacs with <tt>M-x clojure-jack-in</tt>, run:
 
     => (enable-logging-in-emacs)
 
