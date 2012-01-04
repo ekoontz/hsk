@@ -11,14 +11,17 @@ Uses Cascalog by Nathan Marz for logging support (https://github.com/nathanmarz/
     lein clean, jar, test
 
 There is also a Makefile : running "make test" runs the above plus
-hadoop command-line shell tests.
+hadoop command-line shell tests. Your Hadoop install must be
+configured validly for "make test" to succeed: see "Hadoop
+Configuration" below.
 
 __You must make sure to run "lein jar" before you run "lein test"
 because the tests need the jar file so that they can run through the
 Hadoop framework.__
 
-In case of trouble, please try the "From Scratch" section below which
-will hopefully give you a failsafe testing environment with a local Hadoop configuration.
+In case of trouble, please try the "Hadoop Configuration" section
+below which will hopefully give you a failsafe Hadoop local-only
+testing environment.
 
 ### HDFS shell
 
@@ -53,9 +56,14 @@ For example:
 
     => (tool-run (Tool.) (list "hdfs://localhost:9000/wordcount-in" "hdfs://localhost:9000/wordcount-out"))
 
-## Setup from scratch:
+## Building Clojure
 
-### Clojure
+This is only necessary so that hadoop can find the clojure 1.3.0
+jar. If you have the clojure 1.3.0 jar in a known path, you can simply
+configure your <tt>HADOOP_CLASSPATH</tt> (see below) to point to
+it. Running <tt>lein deps</tt> in the current directory
+(<tt>hsk/</tt>) will attempt to fetch the clojure jar remotely and
+place it in <tt>lib/</tt>.
 
     $ git clone https://github.com/clojure/clojure.git
     $ cd clojure
@@ -64,9 +72,9 @@ For example:
 
 The last command installs the newly-built clojure jar in
 <tt>$HOME/.m2/repository/org/clojure/clojure/1.3.0/clojure-1.3.0.jar</tt>,
-which we'll use when we configure Hadoop next.
+which is used to configure Hadoop in the following section.
 
-### Hadoop
+## Hadoop Configuration
 
     $ git clone http://github.com/apache/hadoop-common.git
     $ git checkout branch-1.0
