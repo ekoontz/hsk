@@ -33,6 +33,8 @@ testing environment.
 
 ### MapReduce jobs
 
+#### Setup
+
     $ lein repl
     => (ns myns (:use [hsk.shell][hsk.logging][hsk.wordcount]))
     => (import '[hsk.wordcount Tool])
@@ -40,6 +42,8 @@ testing environment.
 If running in emacs with <tt>M-x clojure-jack-in</tt>, run:
 
     => (enable-logging-in-emacs)
+
+#### Run
 
 Now to run the MapReduce job:
 
