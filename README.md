@@ -44,7 +44,7 @@ If running in emacs with <tt>M-x clojure-jack-in</tt>, run:
     => (enable-logging-in-emacs)
 
 
-#### Run
+#### <tt>(tool-run)</tt>
 
 The <tt>(Tool.)</tt> constructor can now be used to create a Job, which can then be run on your Hadoop cluster using
 the <tt>(tool-run)</tt> method. <tt>(tool-run)</tt> takes 3 parameters:
@@ -53,7 +53,7 @@ the <tt>(tool-run)</tt> method. <tt>(tool-run)</tt> takes 3 parameters:
 * An input directory (<tt>file:///..</tt>, <tt>hdfs://..</tt>, ..)
 * An output directory (same as with input directory).
 
-To run in standalone mode:
+#### Try it in standalone mode
 
 (First, clear out previously-run output, if any, using <tt>(shell)</tt>):
 
