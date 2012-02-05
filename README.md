@@ -53,7 +53,7 @@ the <tt>(tool-run)</tt> method. <tt>(tool-run)</tt> takes 3 parameters:
 * An input directory (<tt>file:///..</tt>, <tt>hdfs://..</tt>, ..)
 * An output directory (same as with input directory).
 
-#### Try it in standalone mode
+#### Run in standalone mode
 
 (First, clear out previously-run output, if any, using <tt>(shell)</tt>):
 
@@ -65,11 +65,11 @@ Then:
     => (shell "ls file:///tmp/wordcount-out")
     => (shell "cat file:///tmp/wordcount-out/part-00000")
 
-You may change from a local development URL like "file:///tmp" in the
-above to a fully-distributed URL like "hdfs://mycluster.com" and
-everything should work the same.
+#### Run in distributed mode
 
-For example:
+Your URL will be a fully distributed URL as in the following example. Also you will need to have your 
+hadoop <tt>conf/</tt> directory available in your classpath: see below for more on getting a simple 
+Hadoop configuration working.
 
     => (tool-run (Tool.) (list "hdfs://mynamenode:9000/wordcount-in" "hdfs://mynamenode:9000/wordcount-out"))
 
