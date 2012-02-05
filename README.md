@@ -43,11 +43,24 @@ If running in emacs with <tt>M-x clojure-jack-in</tt>, run:
 
     => (enable-logging-in-emacs)
 
+
 #### Run
 
-Now to run the MapReduce job:
+The <tt>(Tool.)</tt> constructor can now be used to create a Job, which can then be run on your Hadoop cluster using
+the <tt>(tool-run)</tt> method. <tt>(tool-run)</tt> takes 3 parameters:
+
+* A Job (created by <tt>(Tool.)</tt>
+* An input directory (<tt>file:///..</tt>, <tt>hdfs://..</tt>, ..)
+* An output directory (same as with input directory).
+
+To run in standalone mode:
+
+(First, clear out previously-run output, if any, using <tt>(shell)</tt>):
 
     => (shell "rmr file:///tmp/wordcount-out")
+
+Then:
+
     => (tool-run (Tool.) (list "file:///tmp/wordcount-in" "file:///tmp/wordcount-out"))
     => (shell "ls file:///tmp/wordcount-out")
     => (shell "cat file:///tmp/wordcount-out/part-00000")
@@ -58,7 +71,7 @@ everything should work the same.
 
 For example:
 
-    => (tool-run (Tool.) (list "hdfs://localhost:9000/wordcount-in" "hdfs://localhost:9000/wordcount-out"))
+    => (tool-run (Tool.) (list "hdfs://mynamenode:9000/wordcount-in" "hdfs://mynamenode:9000/wordcount-out"))
 
 ## Building Clojure
 
