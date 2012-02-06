@@ -35,9 +35,8 @@ testing environment.
 
 The model here is a one-to-one correspondence between a Clojure namespace and a MapReduce job definition.
 To define a MR job, you create a namespace, define some classes using <tt>(gen-class)</tt>  and 
-define a <tt>(tool-run)</tt> function using <tt>(defn)</tt>. We'll use hsk's provided [<tt>hsk.wordcount</tt> namespace]
-(https://github.com/ekoontz/hsk/blob/master/src/hsk/wordcount.clj source for <tt>hsk.wordcount</tt>)
-as an example.
+define a <tt>(tool-run)</tt> function using <tt>(defn)</tt>. Below we use hsk's provided [<tt>hsk.wordcount</tt> namespace]
+(https://github.com/ekoontz/hsk/blob/master/src/hsk/wordcount.clj) as an example.
 
 
 #### Setup
