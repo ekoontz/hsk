@@ -33,6 +33,9 @@ testing environment.
 
 ### MapReduce jobs
 
+We'll illustrate this by using the provided <tt>hsk.wordcount</tt> Clojure namespace: 
+the model here is a one-to-one correspondence between a Clojure namespace and a MapReduce job definition.
+
 #### Setup
 
     $ lein repl
