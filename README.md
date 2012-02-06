@@ -51,7 +51,7 @@ the <tt>(tool-run)</tt> method. <tt>(tool-run)</tt> takes 3 parameters:
 
 * A Job (created by <tt>(Tool.)</tt>
 * An input directory (<tt>file:///..</tt>, <tt>hdfs://..</tt>, ..)
-* An output directory (same as with input directory).
+* An output directory (same options for filesystem scheme apply as with input directory).
 
 #### Run in standalone mode
 
