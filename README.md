@@ -33,6 +33,14 @@ testing environment.
 
 ### MapReduce jobs
 
+The model here is a one-to-one correspondence between a Clojure namespace and a MapReduce job definition.
+To define a MR job, you create a namespace, define some classes using <tt>(gen-class)</tt>  and 
+define a <tt>(tool-run)</tt> function using <tt>(defn)</tt>. Below we use hsk's provided [<tt>hsk.wordcount</tt>]
+(https://github.com/ekoontz/hsk/blob/master/src/hsk/wordcount.clj) namespace as an example.
+
+
+#### Setup
+
     $ lein repl
     => (ns myns (:use [hsk.shell][hsk.logging][hsk.wordcount]))
     => (import '[hsk.wordcount Tool])
@@ -41,20 +49,35 @@ If running in emacs with <tt>M-x clojure-jack-in</tt>, run:
 
     => (enable-logging-in-emacs)
 
-Now to run the MapReduce job:
+
+#### <tt>(tool-run)</tt>
+
+The <tt>(Tool.)</tt> constructor can now be used to create a Job, which can then be run on your Hadoop cluster using
+the <tt>(tool-run)</tt> method. <tt>(tool-run)</tt> takes 3 parameters:
+
+* A Job (created by <tt>(Tool.)</tt>
+* An input directory (<tt>file:///..</tt>, <tt>hdfs://..</tt>, ..)
+* An output directory (same options for filesystem scheme apply as with input directory).
+
+#### Run in standalone mode
+
+(First, clear out previously-run output, if any, using <tt>(shell)</tt>):
 
     => (shell "rmr file:///tmp/wordcount-out")
+
+Then:
+
     => (tool-run (Tool.) (list "file:///tmp/wordcount-in" "file:///tmp/wordcount-out"))
     => (shell "ls file:///tmp/wordcount-out")
     => (shell "cat file:///tmp/wordcount-out/part-00000")
 
-You may change from a local development URL like "file:///tmp" in the
-above to a fully-distributed URL like "hdfs://mycluster.com" and
-everything should work the same.
+#### Run in distributed mode
 
-For example:
+Your URL will be a fully distributed URL as in the following example. Also you will need to have your 
+hadoop <tt>conf/</tt> directory available in your classpath: see below for more on getting a simple 
+Hadoop configuration working.
 
-    => (tool-run (Tool.) (list "hdfs://localhost:9000/wordcount-in" "hdfs://localhost:9000/wordcount-out"))
+    => (tool-run (Tool.) (list "hdfs://mynamenode:9000/wordcount-in" "hdfs://mynamenode:9000/wordcount-out"))
 
 ## Building Clojure
 
