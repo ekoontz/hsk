@@ -10,7 +10,7 @@
   ;; 
   ;; -https://github.com/technomancy/leiningen/blob/master/sample.project.clj#L91
   :aot [ #"hsk.*" ]
-  :dependencies [[org.clojure/clojure "1.3.0"]
+  :dev-dependencies [[org.clojure/clojure "1.3.0"]
                  [log4j/log4j "1.2.16"]
                  [cascalog/cascalog "1.8.4"]
                  [commons-cli "1.2"]
