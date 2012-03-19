@@ -97,14 +97,28 @@ The last command installs the newly-built clojure jar in
 <tt>$HOME/.m2/repository/org/clojure/clojure/1.3.0/clojure-1.3.0.jar</tt>,
 which is used to configure Hadoop in the following section.
 
-## Hadoop Configuration
+## Building and Installing Hadoop
 
     $ git clone http://github.com/apache/hadoop-common.git
     $ git checkout branch-1.0
     $ ant clean jar
     $ mvn install:install-file -DgroupId=org.apache -DartifactId=hadoop-core -Dversion=1.0.1 -Dpackaging=jar -Dfile=build/hadoop-core-1.0.1-SNAPSHOT.jar
 
-The last command installs the newly-built Hadoop jar so that leiningen can find it.
+The last command installs the newly-built Hadoop jar so that leiningen can find it, although you will need to modify <tt>project.clj</tt> to change: 
+
+    [org.apache.hadoop/hadoop-core "1.0.1"]
+
+to:
+
+    [org.apache.hadoop/hadoop-core "1.0.1-SNAPSHOT"]
+
+If you are developing with others, you may want to set up a maven
+repository to share your snapshots. See [the sample
+<tt>project.clj</tt>](https://github.com/technomancy/leiningen/blob/master/sample.project.clj#L119)
+to learn how to set <tt>project.clj</tt> to access your snapshot
+repository.
+
+## Hadoop Configuration
 
 Modify <tt>conf/hadoop-env.sh</tt> like so:
 
