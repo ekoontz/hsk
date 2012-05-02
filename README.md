@@ -141,6 +141,6 @@ Now start all four Hadoop daemons:
 
 ## License
 
-Copyright (C) 2011
+Copyright (C) 2011 Eugene Koontz
 
 Distributed under the Eclipse Public License, the same as Clojure.
